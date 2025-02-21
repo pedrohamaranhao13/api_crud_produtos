@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.phamtecnologia.domian.entities.Produto;
 import br.com.phamtecnologia.domian.interfaces.ProdutoService;
+import br.com.phamtecnologia.dtos.ProdutoPostDto;
 import br.com.phamtecnologia.repositories.ProdutoRepository;
 
 @Service
@@ -17,9 +18,17 @@ public class ProdutoServiceImpl implements ProdutoService{
 	ProdutoRepository produtoRepository;
 
 	@Override
-	public void create(Produto produto) throws Exception {
-		produtoRepository.save(produto);
+	public void create(ProdutoPostDto dto) throws Exception {
 		
+		Produto produto = new Produto();
+		produto.setId(UUID.randomUUID());
+		produto.setNome(dto.getNome());
+		produto.setDescricao(dto.getDescricao());
+		produto.setPreco(dto.getPreco());
+		produto.setQuantidade(dto.getQuantidade());
+		
+		produtoRepository.save(produto);
+			
 	}
 
 	@Override
